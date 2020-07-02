@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_pokemon/pokemon.dart';
+import 'package:flutter_pokemon/pokemon_detail.dart';
 import 'package:http/http.dart' as http;
 void main() {
   runApp(MaterialApp(
@@ -36,6 +37,10 @@ class HomePageState extends State<HomePage>{
 
         print(pokemonHub.toJson());
 
+        setState(() {
+
+        });
+
 
      }
 
@@ -44,7 +49,7 @@ class HomePageState extends State<HomePage>{
     return Scaffold(
       appBar: AppBar(
         title: Text('PokemonGo'),
-        backgroundColor: Colors.cyan,
+        backgroundColor: Colors.green,
       ),
       body: pokemonHub == null ? Center(
         child: CircularProgressIndicator()): GridView.count(crossAxisCount: 2,
@@ -52,7 +57,10 @@ class HomePageState extends State<HomePage>{
           pokemonHub.pokemon.map((poke) => 
           Padding(padding: EdgeInsets.all(2.0),
           child: InkWell(
-            onTap: (){},
+            onTap: (){
+              Navigator.push(context, 
+            MaterialPageRoute(builder: (context)=> PokemonDetail(pokemon: poke,)),);
+            },
             child: Hero(tag: poke.img, 
             child: Card(
               child: Column(
@@ -60,7 +68,8 @@ class HomePageState extends State<HomePage>{
                 mainAxisSize: MainAxisSize.max,
                 children: <Widget>[
                 Container(
-                  child: Image.network(poke.img),
+                  child: Image.network(poke.img,),
+
                 ),
 
                 Text(
